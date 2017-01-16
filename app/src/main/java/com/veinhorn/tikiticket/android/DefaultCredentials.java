@@ -10,6 +10,7 @@ import java.util.Properties;
 
 /**
  * Created by veinhorn on 16.1.17.
+ * Provides default credentials from property file for easy debugging
  */
 
 public class DefaultCredentials implements ICredentials {

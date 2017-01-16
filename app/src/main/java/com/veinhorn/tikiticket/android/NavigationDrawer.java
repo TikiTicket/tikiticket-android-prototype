@@ -2,13 +2,16 @@ package com.veinhorn.tikiticket.android;
 
 import android.app.Activity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.veinhorn.tikiticket.core.api.ICredentials;
 
 /**
@@ -24,6 +27,7 @@ class NavigationDrawer {
     public NavigationDrawer(Activity activity, Toolbar toolbar) {
         this.activity = activity;
         this.toolbar = toolbar;
+        this.toolbar.setTitle(activity.getString(R.string.my_tickets_drawer_item));
     }
 
     public NavigationDrawer withCreds(ICredentials creds) {
@@ -32,11 +36,30 @@ class NavigationDrawer {
     }
 
     public Drawer build() {
-        return new DrawerBuilder()
+        PrimaryDrawerItem myTicketsItem = new PrimaryDrawerItem()
+                .withName(activity.getString(R.string.my_tickets_drawer_item))
+                .withIcon(FontAwesome.Icon.faw_ticket);
+
+
+        Drawer drawer = new DrawerBuilder()
                 .withActivity(activity)
                 .withToolbar(toolbar)
                 .withAccountHeader(buildAccountHeader())
+                .addDrawerItems(myTicketsItem)
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+                        switch (position) {
+                            case 1:
+                                toolbar.setTitle(R.string.my_tickets_drawer_item);
+                                return true;
+                        }
+                        return false;
+                    }
+                })
                 .build();
+        drawer.setSelection(1);
+        return drawer;
     }
 
     private AccountHeader buildAccountHeader() {
