@@ -9,6 +9,7 @@ import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.veinhorn.tikiticket.core.api.ICredentials;
 
 /**
  * Created by veinhorn on 12.1.17.
@@ -18,14 +19,19 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 class NavigationDrawer {
     private Activity activity;
     private Toolbar toolbar;
+    private ICredentials creds;
 
-    NavigationDrawer(Activity activity,
-                            Toolbar toolbar) {
+    public NavigationDrawer(Activity activity, Toolbar toolbar) {
         this.activity = activity;
         this.toolbar = toolbar;
     }
 
-    Drawer build() {
+    public NavigationDrawer withCreds(ICredentials creds) {
+        this.creds = creds;
+        return this;
+    }
+
+    public Drawer build() {
         return new DrawerBuilder()
                 .withActivity(activity)
                 .withToolbar(toolbar)
@@ -44,7 +50,7 @@ class NavigationDrawer {
 
     private ProfileDrawerItem buildProfileItem() {
         return new ProfileDrawerItem()
-                .withName("MCKLAS")
+                .withName(creds.getLogin())
                 .withIcon(FontAwesome.Icon.faw_user);
     }
 }
