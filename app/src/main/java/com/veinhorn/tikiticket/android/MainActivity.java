@@ -1,10 +1,11 @@
 package com.veinhorn.tikiticket.android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.veinhorn.tikiticket.android.credentials.DefaultCredentials;
+import com.veinhorn.tikiticket.android.credentials.CredentialsStorage;
 import com.veinhorn.tikiticket.core.api.ICredentials;
 
 import butterknife.BindView;
@@ -18,9 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        ICredentials creds = new DefaultCredentials(this);
-        /*MyAsyncTask async = new MyAsyncTask();
-        async.execute();*/
+
+        /** If we cannot read credentials from storage, we should start login activity */
+        ICredentials creds = CredentialsStorage.read(this);
+        if (creds == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+
         new NavigationDrawer(this, toolbar).withCreds(creds).build();
     }
 }

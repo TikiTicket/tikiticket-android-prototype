@@ -13,6 +13,7 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.veinhorn.tikiticket.core.api.ICredentials;
+import com.veinhorn.tikiticket.core.util.Util;
 
 /**
  * Created by veinhorn on 12.1.17.
@@ -31,7 +32,8 @@ class NavigationDrawer {
     }
 
     public NavigationDrawer withCreds(ICredentials creds) {
-        this.creds = creds;
+        if (creds != null) this.creds = creds;
+        else this.creds = Util.newCredentials("Unknown", "Unknown");
         return this;
     }
 

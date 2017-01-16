@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.veinhorn.tikiticket.core.api.ICredentials;
+import com.veinhorn.tikiticket.core.util.Util;
 
 /**
  * Created by veinhorn on 16.1.17.
+ * Used for storing/editing/clearing user credentials in SharedPreferences
  */
 
 public class CredentialsStorage {
@@ -17,6 +19,8 @@ public class CredentialsStorage {
         SharedPreferences prefs = openPreferences(context);
         String login = prefs.getString(LOGIN_KEY, null);
         String password = prefs.getString(PASSWORD_KEY, null);
+        if (login == null || password == null) return null;
+        return Util.newCredentials(login, password);
     }
 
     private static SharedPreferences openPreferences(Context context) {
