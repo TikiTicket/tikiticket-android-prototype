@@ -1,8 +1,9 @@
-package com.veinhorn.tikiticket.android;
+package com.veinhorn.tikiticket.android.credentials;
 
 import android.content.Context;
 import android.util.Log;
 
+import com.veinhorn.tikiticket.android.R;
 import com.veinhorn.tikiticket.core.api.ICredentials;
 
 import java.io.IOException;

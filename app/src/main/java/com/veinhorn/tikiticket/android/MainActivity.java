@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.veinhorn.tikiticket.android.credentials.DefaultCredentials;
 import com.veinhorn.tikiticket.core.api.ICredentials;
 
 import butterknife.BindView;
