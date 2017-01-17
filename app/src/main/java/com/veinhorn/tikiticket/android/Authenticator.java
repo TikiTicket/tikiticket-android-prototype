@@ -6,6 +6,7 @@ import android.util.Log;
 
 /**
  * Created by veinhorn on 16.1.17.
+ * Responsible for user authentication
  */
 
 public class Authenticator extends AsyncTask<String, String, String> {
