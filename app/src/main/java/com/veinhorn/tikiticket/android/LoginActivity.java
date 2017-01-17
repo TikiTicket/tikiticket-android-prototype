@@ -2,8 +2,12 @@ package com.veinhorn.tikiticket.android;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.veinhorn.tikiticket.core.api.ICredentials;
+import com.veinhorn.tikiticket.core.util.Util;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,12 +33,18 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-
     }
 
+    /**
+     * Sign In action
+     */
     @OnClick(R.id.signInButton)
     protected void signIn() {
-        new Authenticator(this).execute();
+        // TODO: Validate credentials from EditText
+        ICredentials creds = Util.newCredentials(loginEditText.getText().toString(),
+                                                 passwordEditText.getText().toString());
+        Log.i("LoginActivity", "Trying to sign in...");
+        new Authenticator(this, creds).execute();
     }
 
     /**
