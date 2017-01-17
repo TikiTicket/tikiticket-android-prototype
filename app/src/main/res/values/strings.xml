@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TikiTicketAndroid</string>
 
+    <string name="sign_in_button_text">Sign In</string>
+
     <!-- Drawer strings -->
     <string name="my_tickets_drawer_item">My tickets</string>
 </resources>
