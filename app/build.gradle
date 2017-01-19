@@ -43,4 +43,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile files('libs/tikiticket-core-0.03.jar')
+    compile 'com.afollestad.material-dialogs:core:0.9.2.3'
 }
