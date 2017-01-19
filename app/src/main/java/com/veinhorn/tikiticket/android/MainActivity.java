@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         if (creds == null) {
             startActivity(new Intent(this, LoginActivity.class));
         }
-
+        
         drawer = new NavigationDrawer(this, toolbar).withCreds(creds).build();
     }
 
