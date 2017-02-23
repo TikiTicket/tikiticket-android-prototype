@@ -1,7 +1,9 @@
-package com.veinhorn.tikiticket.android;
+package com.veinhorn.tikiticket.android.ui.settings;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import com.veinhorn.tikiticket.android.R;
 
 /**
  * Created by veinhorn on 19.1.17.

@@ -6,6 +6,7 @@ import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.veinhorn.tikiticket.android.model.connector.OkHttpConnector;
 import com.veinhorn.tikiticket.core.IConnector;
 import com.veinhorn.tikiticket.core.api.ManagerFactory;
 

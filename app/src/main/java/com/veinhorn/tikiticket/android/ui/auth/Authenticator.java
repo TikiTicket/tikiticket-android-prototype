@@ -1,11 +1,11 @@
-package com.veinhorn.tikiticket.android;
+package com.veinhorn.tikiticket.android.ui.auth;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.veinhorn.tikiticket.android.credentials.CredentialsStorage;
+import com.veinhorn.tikiticket.android.model.creds.CredentialsStorage;
 import com.veinhorn.tikiticket.core.api.IAuthManager;
 import com.veinhorn.tikiticket.core.api.ICredentials;
 import com.veinhorn.tikiticket.core.api.ManagerFactory;

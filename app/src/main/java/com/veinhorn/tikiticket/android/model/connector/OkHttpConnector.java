@@ -1,4 +1,4 @@
-package com.veinhorn.tikiticket.android;
+package com.veinhorn.tikiticket.android.model.connector;
 
 import com.veinhorn.tikiticket.core.IConnector;
 import com.veinhorn.tikiticket.core.ResponseContext;
@@ -12,7 +12,6 @@ import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.Headers;
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;

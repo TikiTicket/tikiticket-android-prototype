@@ -1,4 +1,4 @@
-package com.veinhorn.tikiticket.android.credentials;
+package com.veinhorn.tikiticket.android.model.creds;
 
 import android.content.Context;
 import android.util.Log;

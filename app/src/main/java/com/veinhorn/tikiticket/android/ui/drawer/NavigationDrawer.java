@@ -1,4 +1,4 @@
-package com.veinhorn.tikiticket.android;
+package com.veinhorn.tikiticket.android.ui.drawer;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,15 +15,16 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.veinhorn.tikiticket.android.R;
 import com.veinhorn.tikiticket.core.api.ICredentials;
 import com.veinhorn.tikiticket.core.util.Util;
 
 /**
  * Created by veinhorn on 12.1.17.
- * Contains all navigation drawer building logic
+ * Builds navigation drawer
  */
 
-class NavigationDrawer {
+public class NavigationDrawer {
     private static final String TAG = "NavigationDrawer";
 
     private AppCompatActivity activity;
@@ -36,7 +37,8 @@ class NavigationDrawer {
     public NavigationDrawer(AppCompatActivity activity, Toolbar toolbar) {
         this.activity = activity;
         this.toolbar = toolbar;
-        this.toolbar.setTitle(activity.getString(R.string.my_tickets_drawer_item));
+        // remove this line (buggy behaviour)
+        // this.toolbar.setTitle(activity.getString(R.string.my_tickets_drawer_item));
     }
 
     public NavigationDrawer withCreds(ICredentials creds) {

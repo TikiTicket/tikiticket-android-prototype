@@ -1,4 +1,4 @@
-package com.veinhorn.tikiticket.android;
+package com.veinhorn.tikiticket.android.ui.auth;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.veinhorn.tikiticket.android.R;
 import com.veinhorn.tikiticket.core.api.ICredentials;
 import com.veinhorn.tikiticket.core.util.Util;
 

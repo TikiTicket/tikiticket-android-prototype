@@ -1,7 +1,8 @@
-package com.veinhorn.tikiticket.android;
+package com.veinhorn.tikiticket.android.ui.tickets;
 
 import android.os.AsyncTask;
 
+import com.veinhorn.tikiticket.android.TikiTicketApp;
 import com.veinhorn.tikiticket.core.api.IOrder;
 import com.veinhorn.tikiticket.core.api.IOrderManager;
 import com.veinhorn.tikiticket.core.exception.TikiTicketException;
