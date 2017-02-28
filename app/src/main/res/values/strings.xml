@@ -3,6 +3,11 @@
 
     <string name="sign_in_button_text">Sign In</string>
 
-    <!-- Drawer strings -->
-    <string name="my_tickets_drawer_item">My tickets</string>
+    <!-- Drawer items -->
+    <string name="drawer_profile">Profile</string>
+
+    <string name="drawer_tickets_item">My tickets</string>
+    <string name="drawer_settings_item">Settings</string>
+    <string name="drawer_community_item">Community</string>
+    <!-- -->
 </resources>

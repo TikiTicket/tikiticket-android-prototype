@@ -25,13 +25,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        setSupportActionBar(toolbar);
+
         /** If we cannot read credentials from storage, we should start login activity */
         ICredentials creds = CredentialsStorage.read(this);
         if (creds == null) {
             startActivity(new Intent(this, LoginActivity.class));
         }
         
-        drawer = new NavigationDrawer(this, toolbar).withCreds(creds).build();
+        drawer = new NavigationDrawer(this, toolbar)
+                .withCreds(creds)
+                .withDefaultFragment()
+                .build();
     }
 
     @Override
@@ -42,4 +47,5 @@ public class MainActivity extends AppCompatActivity {
         ICredentials credentials = CredentialsStorage.read(this);
         // if (credentials != null) drawer.get
     }
+
 }

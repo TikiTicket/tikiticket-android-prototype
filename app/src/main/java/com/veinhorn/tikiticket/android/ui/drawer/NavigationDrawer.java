@@ -29,7 +29,7 @@ import com.veinhorn.tikiticket.core.util.Util;
  */
 
 public class NavigationDrawer {
-    private static final String TAG = "NavigationDrawer";
+    private static final String UNKNOWN = "Unknown";
 
     private AppCompatActivity activity;
     private Toolbar toolbar;
@@ -44,7 +44,7 @@ public class NavigationDrawer {
 
     public NavigationDrawer withCreds(ICredentials creds) {
         if (creds != null) this.creds = creds;
-        else this.creds = Util.newCredentials("Unknown", "Unknown");
+        else this.creds = Util.newCredentials(UNKNOWN, UNKNOWN);
         return this;
     }
 
@@ -54,24 +54,11 @@ public class NavigationDrawer {
     }
 
     public Drawer build() {
-        PrimaryDrawerItem myTicketsItem = new PrimaryDrawerItem()
-                .withName(activity.getString(R.string.my_tickets_drawer_item))
-                .withIcon(FontAwesome.Icon.faw_ticket);
-
-
-        SecondaryDrawerItem settingsItem = new SecondaryDrawerItem()
-                .withName("Settings")
-                .withIcon(FontAwesome.Icon.faw_cog);
-
-        SecondaryDrawerItem communityItem = new SecondaryDrawerItem()
-                .withName("Community")
-                .withIcon(FontAwesome.Icon.faw_users);
-
         drawer = new DrawerBuilder()
                 .withActivity(activity)
                 .withToolbar(toolbar)
                 .withAccountHeader(buildAccountHeader())
-                .addDrawerItems(myTicketsItem, settingsItem, communityItem)
+                .addDrawerItems(ticketsItem(), settingsItem(), communityItem())
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
@@ -86,6 +73,26 @@ public class NavigationDrawer {
         return drawer;
     }
 
+    /** Navigation Drawer items */
+    private PrimaryDrawerItem ticketsItem() {
+        return new PrimaryDrawerItem()
+                .withName(activity.getString(R.string.my_tickets_drawer_item))
+                .withIcon(FontAwesome.Icon.faw_ticket);
+    }
+
+    private SecondaryDrawerItem settingsItem() {
+        return new SecondaryDrawerItem()
+                .withName(activity.getString(R.string.drawer_settings_item))
+                .withIcon(FontAwesome.Icon.faw_cog);
+    }
+
+    private SecondaryDrawerItem communityItem() {
+        return new SecondaryDrawerItem()
+                .withName(activity.getString(R.string.drawer_community_item))
+                .withIcon(FontAwesome.Icon.faw_users);
+    }
+    /** */
+
     private AccountHeader buildAccountHeader() {
         return new AccountHeaderBuilder()
                 .withActivity(activity)
@@ -95,10 +102,6 @@ public class NavigationDrawer {
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean current) {
-                        /*if (activity.getSupportActionBar() != null) {
-                            drawer.getActionBarDrawerToggle().setDrawerIndicatorEnabled(false);
-                            activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                        }*/
                         displaySelectedFragment(-1);
                         drawer.closeDrawer();
                         return true;
@@ -120,6 +123,7 @@ public class NavigationDrawer {
         switch (itemId) {
             /** -1 used for Profile */
             case -1:
+                /** If we already have Profile in back stack - do nothing */
                 if (fm.getBackStackEntryCount() > 0) break;
                 fragment = new ProfileFragment();
                 break;

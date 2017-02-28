@@ -14,7 +14,6 @@ import java.util.List;
 /**
  * Created by veinhorn on 8.1.17.
  */
-
 public class MyAsyncTask extends AsyncTask<String, Void, List<IOrder>> {
     @Override
     protected List<IOrder> doInBackground(String... params) {

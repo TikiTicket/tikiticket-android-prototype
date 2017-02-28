@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 
 public class TicketFragment extends Fragment {
     @BindView(R.id.tripListView)
-    protected ListView tripListView;
+    ListView tripListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -29,4 +29,11 @@ public class TicketFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle(getString(R.string.drawer_tickets_item));
+    }
+
 }
