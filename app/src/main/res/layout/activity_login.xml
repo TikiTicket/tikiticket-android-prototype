@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +21,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"/>
+            android:layout_marginRight="20dp"
+            android:textColor="@android:color/white"/>
 
         <EditText
             android:layout_width="match_parent"
@@ -29,19 +34,24 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_below="@+id/loginEditText"/>
+            android:layout_below="@+id/loginEditText"
+            android:textColor="@android:color/white"/>
 
-        <Button
+        <info.hoang8f.widget.FButton
             android:id="@+id/signInButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_in_button_text"
+            android:textColor="@android:color/white"
             android:layout_below="@+id/passwordEditText"
             android:layout_marginTop="20dp"
             android:layout_alignLeft="@+id/passwordEditText"
             android:layout_alignStart="@+id/passwordEditText"
             android:layout_alignRight="@+id/passwordEditText"
-            android:layout_alignEnd="@+id/passwordEditText" />
+            android:layout_alignEnd="@+id/passwordEditText"
+            fbutton:shadowEnabled="false"
+            fbutton:cornerRadius="3dp"
+            fbutton:buttonColor="@color/fbutton_color_green_sea"/>
     </RelativeLayout>
 
 </RelativeLayout>

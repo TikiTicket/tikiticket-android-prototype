@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="sign_in_button_text">Войти</string>
-    <string name="app_name">TikiTicketAndroid</string>
+    <string name="app_name">Билеты</string>
     <string name="drawer_tickets_item">Мои билеты</string>
     <string name="drawer_profile">Личные данные</string>
     <string name="drawer_community_item">Сообщество</string>
     <string name="drawer_settings_item">Настройки</string>
+    <string name="drawer_signout_item">Выйти</string>
+    <string name="drawer_purchase_item">Заказ билетов</string>
 </resources>

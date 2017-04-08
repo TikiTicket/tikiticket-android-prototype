@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TikiTicketAndroid</string>
+    <string name="app_name">Tickets</string>
 
     <string name="sign_in_button_text">Sign In</string>
 
@@ -7,7 +7,9 @@
     <string name="drawer_profile">Profile</string>
 
     <string name="drawer_tickets_item">My tickets</string>
+    <string name="drawer_purchase_item">Purchase</string>
     <string name="drawer_settings_item">Settings</string>
     <string name="drawer_community_item">Community</string>
+    <string name="drawer_signout_item">Sign out</string>
     <!-- -->
 </resources>
