@@ -3,20 +3,20 @@ package com.veinhorn.tikiticket.android.ui.auth;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.EditText;
 
+import com.tikiticket.core.Credentials;
+import com.tikiticket.core.util.Util;
 import com.veinhorn.tikiticket.android.R;
-import com.veinhorn.tikiticket.core.api.ICredentials;
-import com.veinhorn.tikiticket.core.util.Util;
+import com.veinhorn.tikiticket.android.TikiTicketApp;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import info.hoang8f.widget.FButton;
 
 /**
  * Created by veinhorn on 16.1.17.
- * Used for user authentication
  */
 
 public class LoginActivity extends Activity {
@@ -27,7 +27,7 @@ public class LoginActivity extends Activity {
     protected EditText passwordEditText;
 
     @BindView(R.id.signInButton)
-    protected Button signInButton;
+    protected FButton signInButton;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,13 +37,17 @@ public class LoginActivity extends Activity {
     }
 
     /**
-     * Sign In action
+     * Каждый раз здесь необходимо пересоздавать коннектор на основе
+     * введенных пользователем данных
      */
     @OnClick(R.id.signInButton)
     protected void signIn() {
-        // TODO: Validate credentials from EditText
-        ICredentials creds = Util.newCredentials(loginEditText.getText().toString(),
-                                                 passwordEditText.getText().toString());
+        // TODO: Validate credentials fromStation EditText
+        String login = loginEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+        Credentials creds = Util.newCredentials(login, password);
+
+        TikiTicketApp.initializeConnector(creds);
         Log.i("LoginActivity", "Trying to sign in...");
         new Authenticator(this, creds).execute();
     }

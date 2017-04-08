@@ -1,11 +1,11 @@
 package com.veinhorn.tikiticket.android.ui.drawer;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.materialdrawer.AccountHeader;
@@ -17,11 +17,14 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
+import com.tikiticket.core.Credentials;
+import com.tikiticket.core.util.Util;
 import com.veinhorn.tikiticket.android.R;
+import com.veinhorn.tikiticket.android.core.credentials.CredentialsStorage;
+import com.veinhorn.tikiticket.android.core.dao.ProfileRecord;
 import com.veinhorn.tikiticket.android.ui.profile.ProfileFragment;
-import com.veinhorn.tikiticket.android.ui.tickets.TicketFragment;
-import com.veinhorn.tikiticket.core.api.ICredentials;
-import com.veinhorn.tikiticket.core.util.Util;
+import com.veinhorn.tikiticket.android.ui.purchase.PurchaseActivity;
+import com.veinhorn.tikiticket.android.ui.tickets.TicketsFragment;
 
 /**
  * Created by veinhorn on 12.1.17.
@@ -30,10 +33,19 @@ import com.veinhorn.tikiticket.core.util.Util;
 
 public class NavigationDrawer {
     private static final String UNKNOWN = "Unknown";
+    private static final long UNSELECTED = -1;
+
+    /** Fragments */
+    private static final int PROFILE_FRAGMENT = -1;
+    private static final int MY_TICKETS_FRAGMENT = 1;
+    private static final int PURCHASE_ACTIVITY = 2;
+    private static final int SETTINGS_FRAGMENT = 3;
+    private static final int SIGN_OUT_ITEM = 5;
+    /** */
 
     private AppCompatActivity activity;
     private Toolbar toolbar;
-    private ICredentials creds;
+    private Credentials creds;
 
     private Drawer drawer;
 
@@ -42,7 +54,7 @@ public class NavigationDrawer {
         this.toolbar = toolbar;
     }
 
-    public NavigationDrawer withCreds(ICredentials creds) {
+    public NavigationDrawer withCreds(Credentials creds) {
         if (creds != null) this.creds = creds;
         else this.creds = Util.newCredentials(UNKNOWN, UNKNOWN);
         return this;
@@ -54,15 +66,16 @@ public class NavigationDrawer {
     }
 
     public Drawer build() {
+
         drawer = new DrawerBuilder()
                 .withActivity(activity)
                 .withToolbar(toolbar)
                 .withAccountHeader(buildAccountHeader())
-                .addDrawerItems(ticketsItem(), settingsItem(), communityItem())
+                .addDrawerItems(createItems())
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
-                        Toast.makeText(activity, Integer.valueOf(position).toString(), Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(activity, Integer.valueOf(position).toString(), Toast.LENGTH_SHORT).show();
                         drawer.closeDrawer();
                         displaySelectedFragment(position);
                         return true;
@@ -74,10 +87,22 @@ public class NavigationDrawer {
     }
 
     /** Navigation Drawer items */
+    private IDrawerItem[] createItems() {
+        return new IDrawerItem[] {
+                ticketsItem(), purchaseItem(), settingsItem(), communityItem(), signOut()
+        };
+    }
+
     private PrimaryDrawerItem ticketsItem() {
         return new PrimaryDrawerItem()
-                .withName(activity.getString(R.string.my_tickets_drawer_item))
+                .withName(activity.getString(R.string.drawer_tickets_item))
                 .withIcon(FontAwesome.Icon.faw_ticket);
+    }
+
+    private SecondaryDrawerItem purchaseItem() {
+        return new SecondaryDrawerItem()
+                .withName(activity.getString(R.string.drawer_purchase_item))
+                .withIcon(FontAwesome.Icon.faw_buysellads);
     }
 
     private SecondaryDrawerItem settingsItem() {
@@ -91,6 +116,12 @@ public class NavigationDrawer {
                 .withName(activity.getString(R.string.drawer_community_item))
                 .withIcon(FontAwesome.Icon.faw_users);
     }
+
+    private SecondaryDrawerItem signOut() {
+        return new SecondaryDrawerItem()
+                .withName(activity.getString(R.string.drawer_signout_item))
+                .withIcon(FontAwesome.Icon.faw_sign_out);
+    }
     /** */
 
     private AccountHeader buildAccountHeader() {
@@ -102,7 +133,8 @@ public class NavigationDrawer {
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public boolean onProfileChanged(View view, IProfile profile, boolean current) {
-                        displaySelectedFragment(-1);
+                        displaySelectedFragment(PROFILE_FRAGMENT);
+                        drawer.setSelection(UNSELECTED);
                         drawer.closeDrawer();
                         return true;
                     }
@@ -121,19 +153,34 @@ public class NavigationDrawer {
         Fragment fragment = null;
 
         switch (itemId) {
-            /** -1 used for Profile */
-            case -1:
+            /** PROFILE_FRAGMENT used for Profile */
+            case PROFILE_FRAGMENT:
                 /** If we already have Profile in back stack - do nothing */
                 if (fm.getBackStackEntryCount() > 0) break;
                 fragment = new ProfileFragment();
                 break;
-            case 1:
+            case MY_TICKETS_FRAGMENT:
                 clearBackStack(fm);
-                fragment = new TicketFragment();
+                fragment = new TicketsFragment();
+                break;
+            case PURCHASE_ACTIVITY:
+                Intent purchaseActivity = new Intent(activity, PurchaseActivity.class);
+                activity.startActivity(purchaseActivity);
+                break;
+            case SETTINGS_FRAGMENT:
+
+                /*clearBackStack(fm);
+                fragment = new SettingsFragment();*/
+                break;
+            /** Очистка данных пользователя, т.е логина и пароля */
+            case SIGN_OUT_ITEM:
+                CredentialsStorage.clean(activity);
+                new ProfileRecord().deleteProfile();
+                activity.finish();
                 break;
         }
 
-        if (fragment != null && itemId == -1) {
+        if (fragment != null && itemId == PROFILE_FRAGMENT) {
             fm.beginTransaction().add(R.id.contentFrame, fragment).addToBackStack(null).commit();
         } else if (fragment != null) {
             fm.beginTransaction().replace(R.id.contentFrame, fragment).commit();

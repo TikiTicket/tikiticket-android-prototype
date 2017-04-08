@@ -1,10 +1,10 @@
-package com.veinhorn.tikiticket.android.model.creds;
+package com.veinhorn.tikiticket.android.core.credentials;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.veinhorn.tikiticket.core.api.ICredentials;
-import com.veinhorn.tikiticket.core.util.Util;
+import com.tikiticket.core.Credentials;
+import com.tikiticket.core.util.Util;
 
 /**
  * Created by veinhorn on 16.1.17.
@@ -19,7 +19,7 @@ public class CredentialsStorage {
     private static final String PASSWORD_KEY = "user.password";
 
     /** Получение логина и пароля из хранилища */
-    public static ICredentials read(Context context) {
+    public static Credentials read(Context context) {
         SharedPreferences prefs = openPreferences(context);
         String login = prefs.getString(LOGIN_KEY, null);
         String password = prefs.getString(PASSWORD_KEY, null);
@@ -28,7 +28,7 @@ public class CredentialsStorage {
     }
 
     /** Сохранение логина и пароля в хранилище */
-    public static void write(Context context, ICredentials creds) {
+    public static void write(Context context, Credentials creds) {
         SharedPreferences prefs = openPreferences(context);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(LOGIN_KEY, creds.getLogin());
